@@ -14,11 +14,11 @@ endif
 
 .PHONY: all
 all:
-	docker build --build-arg TAG=$(TAG) -t rancher/crictl:$(TAG)-$(ARCH) .
+	docker build --build-arg TAG=$(TAG) -t rancher/crictl:$(TAG) .
 
 .PHONY: image-push
 image-push:
-	docker push rancher/crictl:$(TAG)-$(ARCH) >> /dev/null
+	docker push rancher/crictl:$(TAG) >> /dev/null
 
 .PHONY: scan
 image-scan:
@@ -26,6 +26,6 @@ image-scan:
 
 .PHONY: image-manifest
 image-manifest:
-	docker image inspect rancher/crictl:$(TAG)-$(ARCH)
-	DOCKER_CLI_EXPERIMENTAL=enabled docker manifest create rancher/crictl:$(TAG)-$(ARCH) \
-		$(shell docker image inspect rancher/crictl:$(TAG)-$(ARCH) | jq -r '.[] | .RepoDigests[0]')
+	docker image inspect rancher/crictl:$(TAG)
+	DOCKER_CLI_EXPERIMENTAL=enabled docker manifest create rancher/crictl:$(TAG) \
+		$(shell docker image inspect rancher/crictl:$(TAG) | jq -r '.[] | .RepoDigests[0]')
