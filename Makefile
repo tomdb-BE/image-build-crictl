@@ -14,18 +14,18 @@ endif
 
 .PHONY: all
 all:
-	docker build --build-arg TAG=$(TAG) -t rancher/crictl:$(TAG) .
+	docker build --build-arg TAG=$(TAG) -t rancher/hardened-crictl:$(TAG) .
 
 .PHONY: image-push
 image-push:
-	docker push rancher/crictl:$(TAG) >> /dev/null
+	docker push rancher/hardened-crictl:$(TAG) >> /dev/null
 
 .PHONY: scan
 image-scan:
-	trivy --severity $(SEVERITIES) --no-progress --skip-update --ignore-unfixed rancher/crictl:$(TAG)
+	trivy --severity $(SEVERITIES) --no-progress --skip-update --ignore-unfixed rancher/hardened-crictl:$(TAG)
 
 .PHONY: image-manifest
 image-manifest:
-	docker image inspect rancher/crictl:$(TAG)
-	DOCKER_CLI_EXPERIMENTAL=enabled docker manifest create rancher/crictl:$(TAG) \
-		$(shell docker image inspect rancher/crictl:$(TAG) | jq -r '.[] | .RepoDigests[0]')
+	docker image inspect rancher/hardened-crictl:$(TAG)
+	DOCKER_CLI_EXPERIMENTAL=enabled docker manifest create rancher/hardened-crictl:$(TAG) \
+		$(shell docker image inspect rancher/hardened-crictl:$(TAG) | jq -r '.[] | .RepoDigests[0]')
