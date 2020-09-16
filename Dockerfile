@@ -12,7 +12,7 @@ RUN git clone --depth=1 https://github.com/kubernetes-sigs/cri-tools.git
 RUN cd cri-tools                       && \
     git fetch --all --tags --prune     && \
     git checkout tags/${TAG} -b ${TAG} && \
-    go build -o _output/crictl -ldflags '-X github.com/kubernetes-sigs/cri-tools/pkg/version.Version=${TAG}' -tags '$(BUILDTAGS)' github.com/kubernetes-sigs/cri-tools/cmd/crictl
+    go build -o _output/crictl -ldflags '-X github.com/kubernetes-sigs/cri-tools/pkg/version.Version=${TAG} -extldflags -static' -tags '$(BUILDTAGS)' github.com/kubernetes-sigs/cri-tools/cmd/crictl
 
 FROM ubi
 RUN microdnf update -y && \ 
