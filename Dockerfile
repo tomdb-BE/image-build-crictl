@@ -1,5 +1,5 @@
-ARG UBI_IMAGE=registry.access.redhat.com/ubi7/ubi-minimal:latest
-ARG GO_IMAGE=rancher/hardened-build-base:v1.15.8b5
+ARG UBI_IMAGE
+ARG GO_IMAGE
 FROM ${UBI_IMAGE} as ubi
 FROM ${GO_IMAGE} as builder
 # setup required packages
@@ -27,6 +27,6 @@ RUN install -s bin/* /usr/local/bin
 RUN crictl --version
 
 FROM ubi
-RUN microdnf update -y && \
+RUN yum update -y && \
     rm -rf /var/cache/yum
 COPY --from=builder /usr/local/bin/ /usr/local/bin/
