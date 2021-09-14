@@ -27,6 +27,4 @@ RUN install -s bin/* /usr/local/bin
 RUN crictl --version
 
 FROM ubi
-RUN yum update -y && \
-    rm -rf /var/cache/yum
 COPY --from=builder /usr/local/bin/ /usr/local/bin/
