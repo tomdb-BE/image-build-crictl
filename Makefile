@@ -18,7 +18,7 @@ ifeq (,$(filter %$(BUILD_META),$(TAG)))
 $(error TAG needs to end with build metadata: $(BUILD_META))
 endif
 
-GOLANG_VERSION := $(shell if echo $(TAG) | grep -qE '^v1\.(18|19|20)\.'; then echo v1.15.15b5; else echo v1.16.7b7; fi)
+GOLANG_VERSION := $(shell if echo $(TAG) | grep -qE '^v1\.(18|19|20)\.'; then echo v1.15.15b5; else echo v1.16.9b7; fi)
 
 .PHONY: image-build
 image-build:
@@ -27,7 +27,8 @@ image-build:
 		--build-arg PKG=$(PKG) \
 		--build-arg SRC=$(SRC) \
 		--build-arg TAG=$(TAG:$(BUILD_META)=) \
-		--build-arg GO_IMAGE=rancher/hardened-build-base:$(GOLANG_VERSION) \
+ 		--build-arg ARCH=$(ARCH) \
+ 		--build-arg GO_IMAGE=rancher/hardened-build-base:$(GOLANG_VERSION) \
 		--tag $(ORG)/hardened-crictl:$(TAG) \
 		--tag $(ORG)/hardened-crictl:$(TAG)-$(ARCH) \
 	.
