@@ -28,7 +28,7 @@ image-build:
 		--build-arg SRC=$(SRC) \
 		--build-arg TAG=$(TAG:$(BUILD_META)=) \
                 --build-arg ARCH=$(ARCH) \
-                --build-arg GO_IMAGE=$(ORG)/hardened-build-base:$(GOLANG_VERSION) \
+                --build-arg GO_IMAGE=$(ORG)/hardened-build-base:$(GOLANG_VERSION)-multiarch \
                 --build-arg UBI_IMAGE=$(UBI_IMAGE) \
 		--tag $(ORG)/hardened-crictl:$(TAG) \
 		--tag $(ORG)/hardened-crictl:$(TAG)-$(ARCH) \
