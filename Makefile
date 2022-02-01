@@ -8,7 +8,7 @@ BUILD_META?=-multiarch-build$(shell date +%Y%m%d)
 ORG ?= rancher
 PKG ?= github.com/kubernetes-sigs/cri-tools
 SRC ?= github.com/kubernetes-sigs/cri-tools
-TAG ?= v1.22.0$(BUILD_META)
+TAG ?= v1.23.0$(BUILD_META)
 UBI_IMAGE ?= registry.access.redhat.com/ubi8/ubi-minimal:latest
 
 ifneq ($(DRONE_TAG),)
@@ -19,7 +19,7 @@ ifeq (,$(filter %$(BUILD_META),$(TAG)))
 $(error TAG needs to end with build metadata: $(BUILD_META))
 endif
 
-GOLANG_VERSION := $(shell if echo $(TAG) | grep -qE '^v1\.(18|19|20)\.'; then echo v1.15.15b5; else echo v1.16.10b7; fi)
+GOLANG_VERSION := $(shell if echo $(TAG) | grep -qE '^v1\.(18|19|20)\.'; then echo v1.15.15b5; else echo v1.17.6b7; fi)
 
 .PHONY: image-build
 image-build:
