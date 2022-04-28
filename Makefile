@@ -19,7 +19,7 @@ ifeq (,$(filter %$(BUILD_META),$(TAG)))
 $(error TAG needs to end with build metadata: $(BUILD_META))
 endif
 
-GOLANG_VERSION := $(shell if echo $(TAG) | grep -qE '^v1\.(18|19|20)\.'; then echo v1.15.15b5; else echo v1.17.6b7; fi)
+GOLANG_VERSION ?= v1.18.1b7
 
 .PHONY: image-build
 image-build:
